@@ -1,0 +1,101 @@
+{
+	"dependencyTypes": ["dev", "prod"],
+	"indent": "\t",
+	"semverGroups": [
+		{
+			"label": "don't pin @cloudflare/workers-types",
+			"dependencies": ["@cloudflare/workers-types"],
+			"packages": ["**"],
+			"range": "^"
+		},
+		{
+			"label": "pin all deps",
+			"dependencies": ["**"],
+			"packages": ["**"],
+			"range": ""
+		}
+	],
+	"versionGroups": [
+		{
+			"label": "Use Workers types v5 for ctx.access",
+			"packages": ["internal-sites-template"],
+			"dependencies": ["@cloudflare/workers-types"],
+			"pinVersion": "^5.20260811.1"
+		},
+		{
+			"label": "Use current Workers types for the voice agent template",
+			"packages": ["voice-agent-template"],
+			"dependencies": ["@cloudflare/workers-types"],
+			"pinVersion": "^5.20260831.1"
+		},
+		{
+			"label": "Use current Agents SDK for the voice agent template",
+			"packages": ["voice-agent-template"],
+			"dependencies": ["agents"],
+			"pinVersion": "0.22.0"
+		},
+		{
+			"label": "Use the Agents SDK MCP peer version for the voice agent template",
+			"packages": ["voice-agent-template"],
+			"dependencies": ["@modelcontextprotocol/sdk"],
+			"pinVersion": "1.30.0"
+		},
+		{
+			"label": "Use Zod JSON Schema conversion for the voice agent template",
+			"packages": ["voice-agent-template"],
+			"dependencies": ["zod"],
+			"pinVersion": "4.5.4"
+		},
+		{
+			"label": "Pin Zod 3.x for chanfana template due to chanfana peer dep",
+			"packages": ["chanfana-openapi-template"],
+			"dependencies": ["zod"],
+			"pinVersion": "3.25.67"
+		},
+		{
+			"label": "Allow vite 5 for Remix templates",
+			"packages": ["remix-starter-template", "to-do-list-kv-template"],
+			"dependencies": ["vite"],
+			"pinVersion": "5.4.14"
+		},
+		{
+			"label": "Keep React 18 for legacy Remix templates",
+			"packages": ["remix-starter-template", "to-do-list-kv-template"],
+			"dependencies": [
+				"react",
+				"react-dom",
+				"@types/react",
+				"@types/react-dom"
+			],
+			"pinVersion": "^18.0.0"
+		},
+		{
+			"label": "Allow tailwind 3.x for some templates",
+			"packages": [
+				"saas-admin-template",
+				"to-do-list-kv-template",
+				"remix-starter-template"
+			],
+			"dependencies": ["tailwindcss"],
+			"pinVersion": "^3.4.0"
+		},
+		{
+			"label": "Keep Vitest 3 for the legacy Vite 5 template",
+			"packages": ["to-do-list-kv-template"],
+			"dependencies": ["@vitest/runner", "@vitest/snapshot", "vitest"],
+			"pinVersion": "3.2.7"
+		},
+		{
+			"label": "Keep the compatible Workers pool for Vitest 3",
+			"packages": ["to-do-list-kv-template"],
+			"dependencies": ["@cloudflare/vitest-pool-workers"],
+			"pinVersion": "0.11.1"
+		},
+		{
+			"label": "Set vite to v7",
+			"packages": ["*"],
+			"dependencies": ["vite"],
+			"pinVersion": "^7.0.0"
+		}
+	]
+}
