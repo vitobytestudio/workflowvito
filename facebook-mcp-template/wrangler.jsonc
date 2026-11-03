@@ -1,0 +1,14 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "facebook-mcp-template",
+	"main": "src/index.ts",
+	"compatibility_date": "2025-10-08",
+	"compatibility_flags": ["nodejs_compat"],
+	"workers_dev": true,
+	"observability": { "enabled": true },
+	"vars": {
+		"MCP_SERVER_NAME": "facebook-mcp",
+		"MCP_SERVER_VERSION": "1.0.0"
+	},
+	"upload_source_maps": true
+}

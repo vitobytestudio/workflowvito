@@ -30,6 +30,9 @@
     "durable-chat-template": {
       "package_json_hash": "e6e2877953920f3d2dfe6f8d269a75a7150c11ac"
     },
+    "facebook-mcp-template": {
+      "package_json_hash": "399c956f6c4eb2c9ea09078a562fa3a452a88d7e"
+    },
     "hello-world-do-template": {
       "package_json_hash": "32a566ed339455fbb472b3cb14650d7e8558e523"
     },
