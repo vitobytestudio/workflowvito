@@ -32,7 +32,11 @@ function getEffectiveEnv(env: Env): Env {
 }
 
 // ============ أدوات إنستغرام ============
+import { fetchPublicProfile, fetchPublicHashtagCount } from "./public-fetch";
+
 const TOOLS = [
+  { name: "instagram_get_public_profile", description: "جلب معلومات إنستغرام العمومية فقط (بدون تسجيل دخول) - الاسم، البايو، المتابعين للحسابات العامة", inputSchema: { type: "object", properties: { username: { type: "string", description: "اسم المستخدم بدون @ (مثال: instagram)" } }, required: ["username"] } },
+  { name: "instagram_get_public_hashtag", description: "جلب رابط ومعلومات هاشتاغ عام بدون توكن", inputSchema: { type: "object", properties: { hashtag: { type: "string", description: "بدون # (مثال: oran)" } }, required: ["hashtag"] } },
   { name: "instagram_get_profile", description: "جلب معلومات بروفايل إنستغرام: الاسم، البايو، عدد المتابعين، عدد المنشورات، صورة البروفايل", inputSchema: { type: "object", properties: {}, required: [] } },
   { name: "instagram_get_media", description: "جلب آخر منشورات إنستغرام (صور، فيديو، كاروسيل، ريلز)", inputSchema: { type: "object", properties: { limit: { type: "number", description: "عدد المنشورات (افتراضي 10)", default: 10 } }, required: [] } },
   { name: "instagram_get_media_details", description: "تفاصيل منشور واحد بالـ ID", inputSchema: { type: "object", properties: { media_id: { type: "string", description: "معرف المنشور" } }, required: ["media_id"] } },
@@ -72,6 +76,15 @@ function mockData(tool: string, args: any) {
 }
 
 async function callTool(name: string, args: any, env: Env) {
+  // أدوات عامة بدون توكن - معلومات غير حساسة فقط
+  if (name === "instagram_get_public_profile") {
+    try { const data = await fetchPublicProfile(args.username); return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] }; }
+    catch (e: any) { return { content: [{ type: "text", text: `❌ ${e.message}` }], isError: true }; }
+  }
+  if (name === "instagram_get_public_hashtag") {
+    const data = await fetchPublicHashtagCount(args.hashtag); return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+  }
+
   const eff = getEffectiveEnv(env);
   const hasToken = !!eff.INSTAGRAM_ACCESS_TOKEN && !!eff.INSTAGRAM_USER_ID;
   if (!hasToken) return { content: [{ type: "text", text: JSON.stringify(mockData(name, args), null, 2) }] };
