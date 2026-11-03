@@ -12,6 +12,7 @@ export interface Env {
 }
 
 import { fetchPublicPage, fetchPublicPosts } from "./public-fetch";
+import { fetchPublicGroup } from "./groups";
 
 let CACHED_TOKEN: string | null = null;
 
@@ -23,6 +24,7 @@ function getEffectiveEnv(env: Env): Env {
 const TOOLS = [
   { name: "facebook_get_public_page", description: "جلب معلومات صفحة فيسبوك عامة فقط (الاسم، الوصف) بدون تسجيل دخول - قراءة فقط", inputSchema: { type: "object", properties: { page: { type: "string", description: "اسم الصفحة (مثال: facebook أو zara)" } }, required: ["page"] } },
   { name: "facebook_get_public_posts", description: "جلب منشورات صفحة عامة (قراءة فقط) - بدون لمس، بدون نشر، بدون تعليق", inputSchema: { type: "object", properties: { page: { type: "string", description: "اسم الصفحة" }, limit: { type: "number", default: 5, description: "عدد المنشورات" } }, required: ["page"] } },
+  { name: "facebook_get_public_group_posts", description: "جلب منشورات مجموعة فيسبوك عامة - الأكثر نشاطا (قراءة فقط بدون لمس)", inputSchema: { type: "object", properties: { group: { type: "string", description: "معرف المجموعة أو slug (مثال: 123456789 أو freelance.algeria)" }, limit: { type: "number", default: 5 } }, required: ["group"] } },
   { name: "facebook_get_page_insights_readonly", description: "إحصائيات صفحة (تحتاج Page Token قراءة فقط) - لا نشر ولا تحكم", inputSchema: { type: "object", properties: { page_id: { type: "string", description: "معرف الصفحة" } }, required: ["page_id"] } },
 ] as const;
 
@@ -35,6 +37,10 @@ async function callTool(name: string, args: any, env: Env) {
       }
       case "facebook_get_public_posts": {
         const data = await fetchPublicPosts(args.page, args.limit || 5);
+        return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
+      }
+      case "facebook_get_public_group_posts": {
+        const data = await fetchPublicGroup(args.group);
         return { content: [{ type: "text", text: JSON.stringify(data, null, 2) }] };
       }
       case "facebook_get_page_insights_readonly": {
