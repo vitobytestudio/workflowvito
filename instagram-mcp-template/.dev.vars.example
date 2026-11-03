@@ -1,0 +1,7 @@
+# انسخ هذا الملف إلى .dev.vars وضع التوكن الحقيقي
+# الحصول على التوكن: https://developers.facebook.com/apps/ -> Instagram Graph API -> Generate Access Token
+
+INSTAGRAM_ACCESS_TOKEN=EAAK..._YOUR_LONG_LIVED_TOKEN
+INSTAGRAM_USER_ID=178414..._YOUR_IG_USER_ID
+# اختياري: لحماية رابط MCP نفسه بكلمة سر (Bearer token)
+MCP_API_KEY=sk_mcp_secret_123
