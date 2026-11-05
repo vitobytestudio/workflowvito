@@ -1,0 +1,16 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "vito-private-workspace",
+	"main": "src/index.ts",
+	"compatibility_date": "2025-10-08",
+	"compatibility_flags": ["nodejs_compat"],
+	"workers_dev": true,
+	"observability": { "enabled": true },
+	"vars": {
+		"WORKSPACE_NAME": "Vito Studio — Oran",
+		"WORKSPACE_OWNER": "Vito",
+		"MCP_SERVER_NAME": "vito-private-workspace",
+		"MCP_SERVER_VERSION": "1.0.0"
+	},
+	"upload_source_maps": true
+}
